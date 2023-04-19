@@ -21,7 +21,7 @@ public class TSVtoCateg {
         }
         //заполнение аррэйлиста данными из tsv, вычленяем категории
         forJson.add(fields.get(1));
-        for (int i = 1; i < fields.size() - 1; i += 2) {
+        for (int i = 1; i <= fields.size(); i += 2) {
             String category = fields.get(i);
             if (!forJson.contains(category)) {
                 forJson.add(category);
