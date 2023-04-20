@@ -26,7 +26,7 @@ public class Client {
             System.out.println("Введите траты на эту покупку:");
             Long cost = scanner.nextLong();
             sender.put("date", date.toString());
-            sender.put("cost", cost);
+            sender.put("sum", cost);
             sender.put("title", purchase);
             oos.write(sender.toString().getBytes());
         }

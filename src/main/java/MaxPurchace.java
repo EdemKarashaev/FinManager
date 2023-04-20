@@ -32,9 +32,9 @@ public class MaxPurchace {
             for (String key : keys) {
                 if (key.equals(catG)) {
                     JSONObject val = (JSONObject) jo.get(key);
-                    long cost = (Long) readJson.get("cost");
-                    Long sum = (Long) val.get("sum");
-                    Long newSum = sum + cost;
+                    long cost = (Long) readJson.get("sum");
+                    Long sum1 = (Long) val.get("sum");
+                    Long newSum = sum1 + cost;
                     val.put("sum", newSum);
                 }
             }
