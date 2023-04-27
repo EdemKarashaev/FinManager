@@ -38,9 +38,8 @@ public class Main {
             }
         } else {
             //создание Json файла
-            try {
+            try (FileOutputStream outputStream = new FileOutputStream(fileJson);){
                 fileJson.createNewFile();
-                FileOutputStream outputStream = new FileOutputStream(fileJson);
                 outputStream.write(fileCat.toString().getBytes());
                 outputStream.close();
                 System.out.println("JSON файл успешно создан!");
@@ -53,14 +52,18 @@ public class Main {
             while (true) { // в цикле(!) принимаем подключения
                 try (Socket socket = serverSocket.accept();
                      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                     PrintWriter out = new PrintWriter(socket.getOutputStream());) {
+                     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));) {
 
                     JSONParser parser = new JSONParser();
                     String line = in.readLine();
                     JSONObject readJson = (JSONObject) parser.parse(line);
 
                     MaxPurchace max = new MaxPurchace();
-                    System.out.println(max.calcMax(readJson, list));
+                    JSONObject data= (max.calcMax(readJson, list));
+                    System.out.println(data);
+                    // Сериализация в строку
+                    String jsonString = data.toJSONString();
+                    out.write(jsonString);
                 }
             }
         } catch (IOException | ParseException e) {

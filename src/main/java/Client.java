@@ -1,5 +1,3 @@
-
-
 import org.json.simple.JSONObject;
 
 import java.io.*;
@@ -8,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Client {
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws IOException {
 
         // запускаем подключение сокета по известным координатам и нициализируем приём сообщений с консоли клиента
         try (Socket socket = new Socket("localhost", 8989);
@@ -28,7 +26,12 @@ public class Client {
             sender.put("date", date.toString());
             sender.put("sum", cost);
             sender.put("title", purchase);
+            // отправка запроса на сервер
             oos.write(sender.toString().getBytes());
+
+
+            System.out.println("Server response: " + ois.readUTF());
         }
     }
 }
+
